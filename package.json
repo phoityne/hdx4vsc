@@ -1,7 +1,7 @@
 {
 	"name":        "phoityne-vscode",
 	"displayName": "Haskell GHCi Debug Adapter Phoityne",
-	"version":     "0.0.19",
+	"version":     "0.0.20",
 	"publisher":   "phoityne",
 	"description": "Haskell GHCi Debug Adapter Phoityne for Visual Studio Code.",
 	"categories":  ["Debuggers"],
@@ -55,6 +55,7 @@
 				"program": "phoityne-vscode.sh"
 			},
 			"linux": {
+				"runtime": "sh",
 				"program": "phoityne-vscode.sh"
 			},
 			"configurationAttributes": {
