@@ -52,6 +52,7 @@
 				"program": "phoityne-vscode.bat"
 			},
 			"osx": {
+				"runtime": "sh",
 				"program": "phoityne-vscode.sh"
 			},
 			"linux": {
@@ -68,8 +69,7 @@
 						"ghciCmd",
 						"ghciEnv",
 						"logFile",
-						"logLevel",
-						"hackageVersion"
+						"logLevel"
 					],
 					"properties": {
 						"workspace": {
@@ -138,8 +138,8 @@
 			"initialConfigurations": [
 				{
 					"type": "ghc",
-					"name": "haskell-debug-adapter",
 					"request": "launch",
+					"name": "haskell-debug-adapter",
 					"internalConsoleOptions": "openOnSessionStart",
 					"workspace": "${workspaceRoot}",
 					"startup": "${workspaceRoot}/test/Spec.hs",
@@ -150,6 +150,7 @@
 					"ghciPrompt": "H>>= ",
 					"ghciInitialPrompt":"Prelude>",
 					"ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
+					//"ghciCmd": "stack ghci --with-ghc=haskell-dap --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
 					"ghciEnv": {},
 					"logFile": "${workspaceRoot}/.vscode/phoityne.log",
 					"logLevel": "WARNING"
