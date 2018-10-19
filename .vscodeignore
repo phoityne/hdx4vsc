@@ -1,0 +1,8 @@
+.vscode/**
+out/**/*.map
+src/**
+.gitignore
+tsconfig.json
+tslint.json
+README_ghc7.md
+docs/**

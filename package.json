@@ -11,7 +11,7 @@
 		"url": "https://github.com/phoityne/phoityne-vscode/issues"
 	},
 	"private": false,
-	"engines": {"vscode": "^1.14.0"},
+	"engines": {"vscode": "^1.27.0"},
 	"dependencies": {},
 	"icon": "images/HaskellLogo.png",
 	"keywords": [
@@ -21,7 +21,35 @@
 		"ghci",
 		"stack"
 	],
+	"activationEvents": [
+        "onCommand:extension.hdx4vsc.haskellDebuggingFromEditor",
+        "onCommand:extension.hdx4vsc.haskellDebuggingFromExplore"
+    ],
+    "main": "./out/extension",
 	"contributes": {
+        "commands": [
+            {
+                "command": "extension.hdx4vsc.haskellDebuggingFromEditor",
+                "title": "Start Haskell Debugging"
+            },
+            {
+                "command": "extension.hdx4vsc.haskellDebuggingFromExplore",
+                "title": "Start Haskell Debugging"
+            }
+        ],
+        
+        "menus": {
+            "editor/context": [{
+                "when": "resourceLangId == haskell",
+                "command": "extension.hdx4vsc.haskellDebuggingFromEditor",
+                "title": "Start Haskell Debugging"
+            }],
+            "explorer/context": [{
+                "when": "resourceLangId == haskell",
+                "command": "extension.hdx4vsc.haskellDebuggingFromExplore",
+                "title": "Start Haskell Debugging"
+            }]
+        },
 		"keybindings": [
 			{
 				"key": "f6",
@@ -150,12 +178,25 @@
 					"ghciPrompt": "H>>= ",
 					"ghciInitialPrompt":"Prelude>",
 					"ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
-					//"ghciCmd": "stack ghci --with-ghc=haskell-dap --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
 					"ghciEnv": {},
 					"logFile": "${workspaceRoot}/.vscode/phoityne.log",
 					"logLevel": "WARNING"
 				}
 			]
 		}]
-	}
+	},
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.21",
+        "tslint": "^5.8.0",
+        "@types/node": "^8.10.25",
+        "@types/mocha": "^2.2.42"
+    }
 }
