@@ -18,6 +18,7 @@ Install [phoityne-vscode](https://hackage.haskell.org/package/phoityne-vscode) f
 
 * The source file extension must be ".hs"
 * Can not use STDIN handle while debugging. 
+* Using GHC7, see the [README](https://github.com/phoityne/hdx4vsc/blob/master/README_ghc7.md).
 
   
 # Features

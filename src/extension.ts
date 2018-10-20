@@ -32,7 +32,7 @@ function startHaskellDebuggingFromEditor() {
     }
 
     let cwd = wsFolders[0].uri.fsPath;
-    let launcFile = cwd  + '\\.vscode\\launch.json';
+    let launcFile = cwd  + '/.vscode/launch.json';
     console.log("[HASKELL][DEBUG]:launch json file is " + launcFile);
 
     let startFile = editor.document.fileName;
@@ -102,7 +102,7 @@ function startHaskellDebuggingFromExplore(fileUri:any) {
     }
 
     let cwd = wsFolders[0].uri.fsPath;
-    let launcFile = cwd  + '\\.vscode\\launch.json';
+    let launcFile = cwd  + '/.vscode/launch.json';
     console.log("[HASKELL][DEBUG]:launch json file is " + launcFile);
 
     let launchObj  = readLaunchJSON(launcFile);
