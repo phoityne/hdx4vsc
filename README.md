@@ -11,6 +11,7 @@ Install [phoityne-vscode](https://hackage.haskell.org/package/phoityne-vscode) f
 
 ```
 > stack install phoityne-vscode haskell-dap
+>
 ```
 
 
@@ -50,7 +51,7 @@ The variable added to watch will be forced.
 
 ## Quick Start
 This is a new experimental feature.   
-__Note!!__, This function will automatically change the .vscode / launch.json file.
+__Note!!__, This function will automatically change the .vscode / launch.json file.  
 ![06_quick_start.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/06_quick_start.gif)
 
 # Shortcut keys
