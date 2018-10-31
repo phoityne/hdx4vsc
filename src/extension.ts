@@ -2,7 +2,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import * as path from 'path';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -20,15 +19,15 @@ export function deactivate() {
 //
 function startHaskellDebuggingFromEditor(fileUri:vscode.Uri) {
 
-    let editor = vscode.window.activeTextEditor;
+    const editor = vscode.window.activeTextEditor;
     if (!editor) {
         vscode.window.showErrorMessage('[HASKELL][CRITICAL] can not get edditor object.');
         return;
     }
 
-    let startFile = editor.document.fileName;
-    let selection = editor.selection;
-    let text = editor.document.lineAt(selection.start.line).text;
+    const startFile = editor.document.fileName;
+    const selection = editor.selection;
+    const text = editor.document.lineAt(selection.start.line).text;
 
     console.log("[HASKELL][DEBUG]:startFile: " +  startFile);
     console.log("[HASKELL][DEBUG]:selected line: " +  selection.start.line);
@@ -41,29 +40,18 @@ function startHaskellDebuggingFromEditor(fileUri:vscode.Uri) {
     }      
     console.log("[HASKELL][DEBUG]:function: " +  funcName);
 
-    const wsFolder = vscode.workspace.getWorkspaceFolder(fileUri);
-    if (!wsFolder) {
-        vscode.window.showErrorMessage('[HASKELL][CRITICAL] can not get workspace folders object.' + fileUri);
-        return;
-    }
-
-    let cwd = wsFolder.uri.fsPath;
-    let launchFile = path.join(cwd, '.vscode', 'launch.json');
-    console.log("[HASKELL][DEBUG]:wsFolder: " + wsFolder.uri);
-    console.log("[HASKELL][DEBUG]:launch json file: " + launchFile);
-
     if (false === isNeedArgs(editor, funcName)) {
         vscode.window.showInformationMessage("Start Haskell Debugging on " + funcName + " with no arguments.");
 
-        runDebugger(launchFile, startFile, funcName, "");
+        runDebugger(fileUri, startFile, funcName, "");
 
     } else {
-        let options: vscode.InputBoxOptions = { prompt: "put arguments of function \"" + funcName + "\"."};
+        const options: vscode.InputBoxOptions = { prompt: "put arguments of function \"" + funcName + "\"."};
    
         vscode.window.showInputBox(options).then(value => {
-            let args = !value ? "" : value;
+            const args = !value ? "" : value;
 
-            runDebugger(launchFile, startFile, funcName, args);
+            runDebugger(fileUri, startFile, funcName, args);
         });
 
     }
@@ -72,47 +60,48 @@ function startHaskellDebuggingFromEditor(fileUri:vscode.Uri) {
 //
 //
 function startHaskellDebuggingFromExplore(fileUri:vscode.Uri) {
-    const wsFolder = vscode.workspace.getWorkspaceFolder(fileUri);
-    if (!wsFolder) {
-        vscode.window.showErrorMessage('[HASKELL][CRITICAL] can not get workspace folders object.' + fileUri);
-        return;
-    }
-
-    let cwd = wsFolder.uri.fsPath;
-    let launchFile = path.join(cwd, '.vscode', 'launch.json');
-    console.log("[HASKELL][DEBUG]:wsFolder: " + wsFolder.uri);
-    console.log("[HASKELL][DEBUG]:launch json file: " + launchFile);
-
-    let startFile = fileUri.fsPath;
-    let funcName = "main";
-    let args = "";
+    const startFile = fileUri.fsPath;
+    const funcName = "main";
+    const args = "";
 
     console.log("[HASKELL][DEBUG]:startFile: " +  startFile);
     console.log("[HASKELL][DEBUG]:function: " +  funcName);
     console.log("[HASKELL][DEBUG]:arguments: " +  args);
 
-    runDebugger(launchFile, startFile, funcName, args);
+    runDebugger(fileUri, startFile, funcName, args);
 }
 
 //
 //
-function runDebugger(launchFile:string, startFile:string, funcName:string, args:string) {
+function runDebugger(fileUri:vscode.Uri, startFile:string, funcName:string, args:string) {
 
-    let launch = vscode.workspace.getConfiguration('launch');
+    const confName = 'haskell-debug-adapter';
+    let launch = vscode.workspace.getConfiguration('launch', fileUri);
     let confs = launch.get<any[]>('configurations');
+    
     if (!confs) {
         vscode.window.showErrorMessage('[HASKELL][CRITICAL] can not get launch configurations section. ' + confs);
         return;
     }
 
-    if (1 !== confs.length) {
-        vscode.window.showErrorMessage('[HASKELL][ERROR] not supported multiple configurations. ' + confs);
+    let hasSetVal = false;
+    for(let i=0; i<confs.length; i++) {
+        if (confs[i]['name'] !== confName) {
+            continue;
+        }
+
+        confs[i]['startup']     = startFile;
+        confs[i]['startupFunc'] = funcName;
+        confs[i]['startupArgs'] = args;
+        hasSetVal = true;
+
+        break;
+    }    
+
+    if (false === hasSetVal) {
+        vscode.window.showErrorMessage('[HASKELL][ERROR] not found "' + confName + '" configurations. ' + confs);
         return;
     }
-
-    confs[0]['startup'] = startFile;
-    confs[0]['startupFunc'] = funcName;
-    confs[0]['startupArgs'] = args;
 
     launch.update('configurations', confs).then(() => {
 
@@ -126,11 +115,14 @@ function runDebugger(launchFile:string, startFile:string, funcName:string, args:
 //
 function isNeedArgs(editor:vscode.TextEditor, funcName:string) : boolean {
 
-    let selection = editor.selection;
-    let line = editor.document.lineAt(selection.start.line).text;
+    const selection = editor.selection;
+    const line = editor.document.lineAt(selection.start.line).text;
+    const maxSearchLines = 20;
 
     if (0 <= line.indexOf('::')) {
-        for(var i=selection.start.line; i<editor.document.lineCount; i++) {
+        let maxLines = selection.start.line + maxSearchLines;
+        maxLines = (editor.document.lineCount > maxLines) ? maxLines : editor.document.lineCount;
+        for(let i=selection.start.line; i<maxLines; i++) {
             let l = editor.document.lineAt(i).text;
             if ((selection.start.line < i) && (l.startsWith(funcName))) {
                 return false;
@@ -145,7 +137,9 @@ function isNeedArgs(editor:vscode.TextEditor, funcName:string) : boolean {
         return true;
 
     } else {
-        for(var i=selection.start.line; i >= 0; i--) {
+        let maxLines = selection.start.line - maxSearchLines;
+        maxLines = (0 > maxLines) ? 0 : maxLines;
+        for(let i=selection.start.line; i >= maxLines; i--) {
             let l = editor.document.lineAt(i).text;
             if (0 <= l.indexOf('->')) {
                 return true;
