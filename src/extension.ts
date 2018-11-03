@@ -64,6 +64,14 @@ function startHaskellDebuggingFromExplore(fileUri:vscode.Uri) {
     const funcName = "main";
     const args = "";
 
+    // https://github.com/Microsoft/vscode/issues/3553
+    //{
+    //    "key": "f10",
+    //    "command": "extension.hdx4vsc.haskellDebuggingFromExplore",
+    //    "when": "explorerViewletFocus && !inDebugMode"
+    //}
+    //
+
     console.log("[HASKELL][DEBUG]:startFile: " +  startFile);
     console.log("[HASKELL][DEBUG]:function: " +  funcName);
     console.log("[HASKELL][DEBUG]:arguments: " +  args);
@@ -122,37 +130,71 @@ function isNeedArgs(editor:vscode.TextEditor, funcName:string) : boolean {
     if (0 <= line.indexOf('::')) {
         let maxLines = selection.start.line + maxSearchLines;
         maxLines = (editor.document.lineCount > maxLines) ? maxLines : editor.document.lineCount;
+
+        let isFound = false;
+        let isBreak = false;
         for(let i=selection.start.line; i<maxLines; i++) {
             let l = editor.document.lineAt(i).text;
-            if ((selection.start.line < i) && (l.startsWith(funcName))) {
-                return false;
+            if ((selection.start.line < i) && (l.startsWith(funcName+' '))) {
+                isBreak = true;
+                break;
             }
             if (0 <= l.indexOf('->')) {
-                return true;
+                isFound = true;
             }
         }
 
-        console.log("[HASKELL][WARNING] can not find function implementation. " + funcName);
+        if (isBreak) {
+            if (isFound) {
+                return true;
+            } else {
+                return false;
+            }
 
-        return true;
+        } else {
+            console.log("[HASKELL][WARNING] can not find function implementation. " + funcName);
+            return true;
+        }
 
     } else {
         let maxLines = selection.start.line - maxSearchLines;
         maxLines = (0 > maxLines) ? 0 : maxLines;
+
+        let isFound = false;
+        let isBreak = false;
         for(let i=selection.start.line; i >= maxLines; i--) {
             let l = editor.document.lineAt(i).text;
             if (0 <= l.indexOf('->')) {
-                return true;
+                isFound = true;
             }
 
-            if ((selection.start.line > i) && (l.startsWith(funcName))) {
-                return false;
+            if ((selection.start.line > i)){
+
+                const regStr = '^'+funcName+'\\s+'+'::';
+                if (l.match(regStr)) {
+                    isBreak = true;
+                    break;
+                } else if (l.startsWith(funcName+' ')) {
+                    isFound = false;
+                    //isBreak = true;
+                    //break;
+                } else {
+                    // nop
+                }
             }
         }
 
-        console.log("[HASKELL][INFO] can not find function type definition. " + funcName);
-        
-        return true;
+        if (isBreak) {
+            if (isFound) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            console.log("[HASKELL][INFO] can not find function type definition. " + funcName);
+            return true;
+        }
     }
 }
 

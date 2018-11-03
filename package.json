@@ -1,7 +1,7 @@
 {
 	"name":        "phoityne-vscode",
 	"displayName": "Haskell GHCi Debug Adapter Phoityne",
-	"version":     "0.0.20",
+	"version":     "0.0.21",
 	"publisher":   "phoityne",
 	"description": "Haskell GHCi Debug Adapter Phoityne for Visual Studio Code.",
 	"categories":  ["Debuggers"],
@@ -40,12 +40,12 @@
         
         "menus": {
             "editor/context": [{
-                "when": "resourceLangId == haskell",
+                "when": "resourceLangId == haskell && !inDebugMode",
                 "command": "extension.hdx4vsc.haskellDebuggingFromEditor",
                 "title": "Start Haskell Debugging"
             }],
             "explorer/context": [{
-                "when": "resourceLangId == haskell",
+                "when": "resourceLangId == haskell && !inDebugMode",
                 "command": "extension.hdx4vsc.haskellDebuggingFromExplore",
                 "title": "Start Haskell Debugging"
             }]
@@ -70,6 +70,11 @@
 				"key": "f8",
 				"command": "workbench.action.tasks.test",
 				"when": "!inDebugMode"
+			},
+			{
+				"key": "f10",
+				"command": "extension.hdx4vsc.haskellDebuggingFromEditor",
+				"when": "resourceLangId == haskell && editorTextFocus && !inDebugMode"
 			}
 		],
 		"debuggers": [{
