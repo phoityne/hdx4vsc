@@ -46,10 +46,13 @@ function startHaskellDebuggingFromEditor(fileUri:vscode.Uri) {
         runDebugger(fileUri, startFile, funcName, "");
 
     } else {
-        const options: vscode.InputBoxOptions = { prompt: "put arguments of function \"" + funcName + "\"."};
+        const val = getFuncValArgs(fileUri);
+        const options: vscode.InputBoxOptions = { 
+            prompt: "put arguments of function \"" + funcName + "\".",
+            value: val};
    
         vscode.window.showInputBox(options).then(value => {
-            const args = !value ? "" : value;
+            const args = !value ? val : value;
 
             runDebugger(fileUri, startFile, funcName, args);
         });
@@ -78,6 +81,32 @@ function startHaskellDebuggingFromExplore(fileUri:vscode.Uri) {
 
     runDebugger(fileUri, startFile, funcName, args);
 }
+
+
+//
+//
+function getFuncValArgs(fileUri:vscode.Uri) {
+
+    const confName = 'haskell-debug-adapter';
+    let launch = vscode.workspace.getConfiguration('launch', fileUri);
+    let confs = launch.get<any[]>('configurations');
+    
+    if (!confs) {
+        vscode.window.showErrorMessage('[HASKELL][CRITICAL] can not get launch configurations section. ' + confs);
+        return "";
+    }
+
+    for(let i=0; i<confs.length; i++) {
+        if (confs[i]['name'] !== confName) {
+            continue;
+        }
+
+        return confs[i]['startupArgs'];
+    }    
+
+    return "";
+}
+
 
 //
 //
