@@ -24,6 +24,11 @@ Install [phoityne-vscode](https://hackage.haskell.org/package/phoityne-vscode) f
   
 # Features
 
+## Quick Start
+This is a new experimental feature.   
+__Note!!__, This function will automatically change the .vscode / launch.json file.  
+![06_quick_start.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/06_quick_start.gif)
+
 ## Continue & Steps
 
 ![01_F5_F10_F11.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/01_F5_F10_F11.gif)
@@ -49,10 +54,6 @@ The variable added to watch will be forced.
 
 ![02_console_out.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/02_console_out.gif)
 
-## Quick Start
-This is a new experimental feature.   
-__Note!!__, This function will automatically change the .vscode / launch.json file.  
-![06_quick_start.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/06_quick_start.gif)
 
 # Shortcut keys
 
