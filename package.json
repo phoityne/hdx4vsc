@@ -1,17 +1,23 @@
 {
-	"name":        "phoityne-vscode",
+	"name": "phoityne-vscode",
 	"displayName": "Haskell GHCi Debug Adapter Phoityne",
-	"version":     "0.0.21",
-	"publisher":   "phoityne",
+	"version": "0.0.22",
+	"publisher": "phoityne",
 	"description": "Haskell GHCi Debug Adapter Phoityne for Visual Studio Code.",
-	"categories":  ["Debuggers"],
-	"author":      {"name": "phoityne.hs"},
+	"categories": [
+		"Debuggers"
+	],
+	"author": {
+		"name": "phoityne.hs"
+	},
 	"license": "BSD3",
 	"bugs": {
 		"url": "https://github.com/phoityne/phoityne-vscode/issues"
 	},
 	"private": false,
-	"engines": {"vscode": "^1.27.0"},
+	"engines": {
+		"vscode": "^1.27.0"
+	},
 	"dependencies": {},
 	"icon": "images/HaskellLogo.png",
 	"keywords": [
@@ -22,34 +28,37 @@
 		"stack"
 	],
 	"activationEvents": [
-        "onCommand:extension.hdx4vsc.haskellDebuggingFromEditor",
-        "onCommand:extension.hdx4vsc.haskellDebuggingFromExplore"
-    ],
-    "main": "./out/extension",
+		"onCommand:extension.hdx4vsc.haskellDebuggingFromEditor",
+		"onCommand:extension.hdx4vsc.haskellDebuggingFromExplore"
+	],
+	"main": "./out/extension",
 	"contributes": {
-        "commands": [
-            {
-                "command": "extension.hdx4vsc.haskellDebuggingFromEditor",
-                "title": "Start Haskell Debugging"
-            },
-            {
-                "command": "extension.hdx4vsc.haskellDebuggingFromExplore",
-                "title": "Start Haskell Debugging"
-            }
-        ],
-        
-        "menus": {
-            "editor/context": [{
-                "when": "resourceLangId == haskell && !inDebugMode",
-                "command": "extension.hdx4vsc.haskellDebuggingFromEditor",
-                "title": "Start Haskell Debugging"
-            }],
-            "explorer/context": [{
-                "when": "resourceLangId == haskell && !inDebugMode",
-                "command": "extension.hdx4vsc.haskellDebuggingFromExplore",
-                "title": "Start Haskell Debugging"
-            }]
-        },
+		"commands": [
+			{
+				"command": "extension.hdx4vsc.haskellDebuggingFromEditor",
+				"title": "Start Haskell Debugging"
+			},
+			{
+				"command": "extension.hdx4vsc.haskellDebuggingFromExplore",
+				"title": "Start Haskell Debugging"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "resourceLangId == haskell && !inDebugMode",
+					"command": "extension.hdx4vsc.haskellDebuggingFromEditor",
+					"title": "Start Haskell Debugging"
+				}
+			],
+			"explorer/context": [
+				{
+					"when": "resourceLangId == haskell && !inDebugMode",
+					"command": "extension.hdx4vsc.haskellDebuggingFromExplore",
+					"title": "Start Haskell Debugging"
+				}
+			]
+		},
 		"keybindings": [
 			{
 				"key": "f6",
@@ -77,131 +86,137 @@
 				"when": "resourceLangId == haskell && editorTextFocus && !inDebugMode"
 			}
 		],
-		"debuggers": [{
-			"type": "ghc",
-			"label": "haskell-debug-adapter",
-			"enableBreakpointsFor": { "languageIds": ["haskell"] },
-			"windows": {
-				"program": "phoityne-vscode.bat"
-			},
-			"osx": {
-				"runtime": "sh",
-				"program": "phoityne-vscode.sh"
-			},
-			"linux": {
-				"runtime": "sh",
-				"program": "phoityne-vscode.sh"
-			},
-			"configurationAttributes": {
-				"launch": {
-					"required": [
-						"workspace",
-						"startup",
-						"stopOnEntry",
-						"ghciPrompt",
-						"ghciCmd",
-						"ghciEnv",
-						"logFile",
-						"logLevel"
-					],
-					"properties": {
-						"workspace": {
-							"type"       : "string",
-							"description": "Absolute path to the workspace.",
-							"default"    : "${workspaceRoot}"
-						},
-						"startup": {
-							"type": "string",
-							"description": "Absolute path to the startup program.",
-							"default": "${workspaceRoot}/test/Spec.hs"
-						},
-						"startupFunc": {
-							"type": "string",
-							"description": "startup function.",
-							"default": ""
-						},
-						"startupArgs": {
-							"type": "string",
-							"description": "startup arguments.",
-							"default": ""
-						},
-						"stopOnEntry": {
-							"type": "boolean",
-							"description": "stop debuggin when ghci is launched.",
-							"default": true
-						},
-						"mainArgs": {
-							"type": "string",
-							"description": "main arguments set by ghci :set args commad.",
-							"default": ""
-						},
-						"ghciPrompt": {
-							"type": "string",
-							"description": "ghci prompt string.",
-							"default": "Phoityne>>= "
-						},
-						"ghciInitialPrompt": {
-							"type": "string",
-							"description": "ghci initial prompt.",
-							"default": "Prelude>"
-						},
-						"ghciCmd": {
-							"type": "string",
-							"description": "ghci command.",
-							"default": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show"
-						},
-						"ghciEnv": {
-							"type": "object",
-							"description": "ghci runtime environments.",
-							"default": {}
-						},
-						"logFile": {
-							"type": "string",
-							"description": "Absolute path to the log file.",
-							"default": "${workspaceRoot}/.vscode/phoityne.log"
-						},
-						"logLevel": {
-							"type": "string",
-							"description": "logging level.",
-							"default": "WARNING"
+		"debuggers": [
+			{
+				"type": "ghc",
+				"label": "haskell-debug-adapter",
+				"enableBreakpointsFor": {
+					"languageIds": [
+						"haskell"
+					]
+				},
+				"windows": {
+					"program": "phoityne-vscode.bat"
+				},
+				"osx": {
+					"runtime": "sh",
+					"program": "phoityne-vscode.sh"
+				},
+				"linux": {
+					"runtime": "sh",
+					"program": "phoityne-vscode.sh"
+				},
+				"configurationAttributes": {
+					"launch": {
+						"required": [
+							"workspace",
+							"startup",
+							"stopOnEntry",
+							"ghciPrompt",
+							"ghciCmd",
+							"ghciEnv",
+							"logFile",
+							"logLevel"
+						],
+						"properties": {
+							"workspace": {
+								"type": "string",
+								"description": "Absolute path to the workspace.",
+								"default": "${workspaceRoot}"
+							},
+							"startup": {
+								"type": "string",
+								"description": "Absolute path to the startup program.",
+								"default": "${workspaceRoot}/test/Spec.hs"
+							},
+							"startupFunc": {
+								"type": "string",
+								"description": "startup function.",
+								"default": ""
+							},
+							"startupArgs": {
+								"type": "string",
+								"description": "startup arguments.",
+								"default": ""
+							},
+							"stopOnEntry": {
+								"type": "boolean",
+								"description": "stop debuggin when ghci is launched.",
+								"default": false
+							},
+							"mainArgs": {
+								"type": "string",
+								"description": "main arguments set by ghci :set args commad.",
+								"default": ""
+							},
+							"ghciPrompt": {
+								"type": "string",
+								"description": "ghci prompt string.",
+								"default": "Phoityne>>= "
+							},
+							"ghciInitialPrompt": {
+								"type": "string",
+								"description": "ghci initial prompt.",
+								"default": "Prelude>"
+							},
+							"ghciCmd": {
+								"type": "string",
+								"description": "ghci command.",
+								"default": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show"
+							},
+							"ghciEnv": {
+								"type": "object",
+								"description": "ghci runtime environments.",
+								"default": {}
+							},
+							"logFile": {
+								"type": "string",
+								"description": "Absolute path to the log file.",
+								"default": "${workspaceRoot}/.vscode/phoityne.log"
+							},
+							"logLevel": {
+								"type": "string",
+								"description": "logging level.",
+								"default": "WARNING"
+							}
 						}
 					}
-				}
-			},
-			"initialConfigurations": [
-				{
-					"type": "ghc",
-					"request": "launch",
-					"name": "haskell-debug-adapter",
-					"internalConsoleOptions": "openOnSessionStart",
-					"workspace": "${workspaceRoot}",
-					"startup": "${workspaceRoot}/test/Spec.hs",
-					"startupFunc": "",
-					"startupArgs": "",
-					"stopOnEntry": true,
-					"mainArgs": "",
-					"ghciPrompt": "H>>= ",
-					"ghciInitialPrompt":"Prelude>",
-					"ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
-					"ghciEnv": {},
-					"logFile": "${workspaceRoot}/.vscode/phoityne.log",
-					"logLevel": "WARNING"
-				}
-			]
-		}]
+				},
+				"initialConfigurations": [
+					{
+						"type": "ghc",
+						"request": "launch",
+						"name": "haskell-debug-adapter",
+						"internalConsoleOptions": "openOnSessionStart",
+						"workspace": "${workspaceRoot}",
+						"startup": "${workspaceRoot}/test/Spec.hs",
+						"startupFunc": "",
+						"startupArgs": "",
+						"stopOnEntry": false,
+						"mainArgs": "",
+						"ghciPrompt": "H>>= ",
+						"ghciInitialPrompt": "Prelude>",
+						"ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
+						"ghciEnv": {},
+						"logFile": "${workspaceRoot}/.vscode/phoityne.log",
+						"logLevel": "WARNING"
+					}
+				]
+			}
+		]
 	},
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.21",
-        "tslint": "^5.8.0",
-        "@types/node": "^8.10.25",
-        "@types/mocha": "^2.2.42"
-    }
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^8.10.25",
+		"tslint": "^5.13.0",
+		"typescript": "^2.9.2",
+		"vscode": "^1.1.21"
+	}
 }
