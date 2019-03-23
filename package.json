@@ -1,7 +1,7 @@
 {
 	"name": "phoityne-vscode",
 	"displayName": "Haskell GHCi Debug Adapter Phoityne",
-	"version": "0.0.22",
+	"version": "0.0.23",
 	"publisher": "phoityne",
 	"description": "Haskell GHCi Debug Adapter Phoityne for Visual Studio Code.",
 	"categories": [
@@ -178,6 +178,11 @@
 								"type": "string",
 								"description": "logging level.",
 								"default": "WARNING"
+							},
+							"forceInspect": {
+								"type": "string",
+								"description": "force inspect variables.",
+								"default": false
 							}
 						}
 					}
@@ -199,7 +204,8 @@
 						"ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
 						"ghciEnv": {},
 						"logFile": "${workspaceRoot}/.vscode/phoityne.log",
-						"logLevel": "WARNING"
+						"logLevel": "WARNING",
+						"forceInspect": false
 					}
 				]
 			}
