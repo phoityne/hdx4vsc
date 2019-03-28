@@ -11,6 +11,9 @@
 		"name": "phoityne.hs"
 	},
 	"license": "BSD3",
+	"repository": {
+		"url": "https://github.com/phoityne/phoityne-vscode"
+	},
 	"bugs": {
 		"url": "https://github.com/phoityne/phoityne-vscode/issues"
 	},
@@ -180,7 +183,7 @@
 								"default": "WARNING"
 							},
 							"forceInspect": {
-								"type": "string",
+								"type": "boolean",
 								"description": "force inspect variables.",
 								"default": false
 							}
