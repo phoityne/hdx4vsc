@@ -4,10 +4,8 @@ export HDA_PATH=`which haskell-debug-adapter`
 export PHOITYNE_PATH=`which phoityne-vscode`
 
 if [ "X" != "X$HDA_PATH" ]; then
-  echo "starting haskell-debug-adapter" >&2
   haskell-debug-adapter --hackage-version=0.0.28.0
 elif [ "X" != "X$PHOITYNE_PATH" ]; then
-  echo "starting phoitye-vscoder" >&2
   phoityne-vscode --hackage-version=0.0.28.0
 else
   echo -e "Content-Length: 194\r\n\r"
