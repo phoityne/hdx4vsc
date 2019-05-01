@@ -9,9 +9,9 @@ set pohityne_path=
 for /f "usebackq delims=" %%a in (`%where_pohityne%`) do set pohityne_path=%%a
 
 if "%hda_path%" neq "" (
-  haskell-debug-adapter.exe --hackage-version=0.0.28.0
+  haskell-debug-adapter.exe --hackage-version=0.0.30.0
 ) else if "%pohityne_path%" neq "" (
-  phoityne-vscode.exe --hackage-version=0.0.28.0
+  phoityne-vscode.exe --hackage-version=0.0.30.0
 ) else (
   echo Content-Length: 199
   echo.
