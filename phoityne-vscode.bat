@@ -13,7 +13,7 @@ if "%hda_path%" neq "" (
 ) else if "%pohityne_path%" neq "" (
   phoityne-vscode.exe --hackage-version=0.0.28.0
 ) else (
-  echo "Content-Length: 199"
+  echo Content-Length: 199
   echo.
   echo {"command":"initialize","success":false,"request_seq":1,"seq":1,"type":"response","message":"phoityne-vscode.exe is not found. Run 'stack install phoityne-vscode', and put it to PATH environment."}
   exit 1
