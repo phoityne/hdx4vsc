@@ -1,0 +1,52 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "ghc",
+            "request": "launch",
+            "name": "hda-project1",
+            "internalConsoleOptions": "openOnSessionStart",
+            "workspace": "${workspaceFolder}/project1",
+            "startup": "${workspaceFolder}/project1/test/Spec.hs",
+            "startupFunc": "",
+            "startupArgs": "",
+            "stopOnEntry": false,
+            "mainArgs": "",
+            "ghciPrompt": "H>>= ",
+            "ghciInitialPrompt": "Prelude>",
+            "ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
+            "ghciEnv": {},
+            "logFile": "${workspaceFolder}/.vscode/phoityne-project1.log",
+            "logLevel": "WARNING",
+            "forceInspect": false
+        },
+        {
+            "type": "ghc",
+            "request": "launch",
+            "name": "hda-project2",
+            "internalConsoleOptions": "openOnSessionStart",
+            "workspace": "${workspaceFolder}/project2",
+            "startup": "${workspaceFolder}/project2/test/Spec.hs",
+            "startupFunc": "",
+            "startupArgs": "",
+            "stopOnEntry": false,
+            "mainArgs": "",
+            "ghciPrompt": "H>>= ",
+            "ghciInitialPrompt": "Prelude>",
+            "ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
+            "ghciEnv": {},
+            "logFile": "${workspaceFolder}/.vscode/phoityne-project2.log",
+            "logLevel": "WARNING",
+            "forceInspect": false
+        }
+    ],
+    "compounds": [
+        {
+            "name": "hda-project-all",
+            "configurations": ["hda-project1", "hda-project2"]
+        }
+    ]
+}
