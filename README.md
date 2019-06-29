@@ -75,7 +75,7 @@ While debugging, you can use F5, F9, F10, F11 shortcut keys.
 
 # Configuration
 
-see [sample files](https://github.com/phoityne/hdx4vsc/configs).
+see [sample files](https://github.com/phoityne/hdx4vsc/tree/master/configs).
 
 ## __.vscode/launch.json__
 
