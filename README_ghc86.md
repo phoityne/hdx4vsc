@@ -1,29 +1,30 @@
 
+
 # Requirements
 
- Install [haskell-dap](https://hackage.haskell.org/package/haskell-dap), [ghci-dap](https://hackage.haskell.org/package/ghci-dap), [haskell-debug-adapter](https://hackage.haskell.org/package/haskell-debug-adapter) at once.
+Install [phoityne-vscode](https://hackage.haskell.org/package/phoityne-vscode) from hackage.  
+
+## Especially for GHC8
+
+ Install [phoityne-vscode](https://hackage.haskell.org/package/phoityne-vscode) and [haskell-dap](https://hackage.haskell.org/package/haskell-dap).  
+ In the launch.json, add "--with-ghc=haskell-dap" to ghciCmd variable.
 
 ```
-> stack install haskell-dap ghci-dap haskell-debug-adapter
+> stack install phoityne-vscode haskell-dap
 >
 ```
 
 
 # Limitations
-* Supported ghc-8.4, 8.6, ~~8.8~~
+
 * The source file extension must be ".hs"
 * Can not use STDIN handle while debugging. 
-* Using ghc-8.0, 8.2, see the [README](https://github.com/phoityne/hdx4vsc/blob/master/README_ghc86.md).
-* Using ghc7, see the [README](https://github.com/phoityne/hdx4vsc/blob/master/README_ghc7.md).
+* Using GHC7, see the [README](https://github.com/phoityne/hdx4vsc/blob/master/README_ghc7.md).
 
   
 # Features
 
-## Quick Setup
-![07_construct_dev.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/07_construct_dev.gif)
-
-
-## Quick Start Debugging
+## Quick Start
 This is a new experimental feature.   
 __Note!!__, This function will automatically change the .vscode / launch.json file.  
 ![06_quick_start.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/06_quick_start.gif)
@@ -72,10 +73,9 @@ While debugging, you can use F5, F9, F10, F11 shortcut keys.
   * F10 : step next
   * F11 : step into
 
+ 
 
 # Configuration
-
-see [sample files](https://github.com/phoityne/hdx4vsc/configs).
 
 ## __.vscode/launch.json__
 
@@ -84,15 +84,75 @@ see [sample files](https://github.com/phoityne/hdx4vsc/configs).
 |startup|required|${workspaceRoot}/test/Spec.hs|debug startup file, will be loaded automatically.|
 |startupFunc|optional|"" (empty string)|debug startup function, will be run instead of main function.|
 |startupArgs|optional|"" (empty string)|arguments for startup function. set as string type.|
-|stopOnEntry|required|false|stop or not after debugger launched.
-|mainArgs|optional|"" (empty string)|main arguments.|
+|ghciCmd|required|stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show|launch ghci command, must be Prelude module loaded. For example, "ghci -i${workspaceRoot}/src", "cabal exec -- ghci -i${workspaceRoot}/src"|
 |ghciPrompt|required|H>>=|ghci command prompt string.|
 |ghciInitialPrompt|optional|"Prelude> "|initial pormpt of ghci. set it when using custom prompt. e.g. set in .ghci|
-|ghciCmd|required|stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show|launch ghci command, must be Prelude module loaded. For example, "ghci -i${workspaceRoot}/src", "cabal exec -- ghci -i${workspaceRoot}/src"|
-|ghciEnv|required|[]|Environment variables for ghci exectution.|
+|stopOnEntry|required|true|stop or not after debugger launched.
+|mainArgs|optional|"" (empty string)|main arguments.|
 |logFile|required|${workspaceRoot}/.vscode/phoityne.log|internal log file.|
 |logLevel|required|WARNING|internal log level.|
-|forceInspect|required|false|Inspect scope variables force.|
+
+
+### changing ghci initial prompt 
+
+If you change ghci prompt in .ghci file, or ghci prompt is changed from "Prelude>" by applying _NoImplicitPrelude_ extension, set the initial prompt variable to same prompt string.
+
+    % diff .vscode/launch.json.old .vscode/launch.json
+    19c19
+    <             "ghciInitialPrompt": "Prelude> "      // default value.
+    ---
+    >             "ghciInitialPrompt": "> "             // e.g.
+    %
+
+Make sure needs of the last space, and don't forget adding it.
+
+
+### setting the startup hs file
+
+Set the startup variable to the path of .hs file in which main function is defined.
+
+    % diff .vscode/launch.json.old .vscode/launch.json
+    10c10
+    <             "startup": "${workspaceRoot}/test/Spec.hs",    // default value.
+    ---
+    >             "startup": "${workspaceRoot}/app/run.hs",     // e.g.
+    %
+
+
+### setting the startup function
+
+If you want to run the specific function instead of main function, set the startupFunc variable.  
+For example, when specifying the following startDebug function,
+
+    startDebug :: String -> IO ()
+    startDebug name = do
+      putStrLn "hello"
+      putStrLn name 
+
+set the valiavles in the launch.json file.
+
+    % diff .vscode/launch.json.old .vscode/launch.json
+    11c12
+    <             "startupFunc": "",    // default value.
+    <             "startupArgs": "",    // default value.
+    ---
+    >             "startupFunc": "startDebug",       // e.g.
+    >             "startupArgs": "\"phoityne\"",     // e.g.
+    %
+
+
+### changing log level
+
+For debuging phoityen itself, change the log level to DEBUG.  
+Adding Issue with the debug log.
+
+    % diff .vscode/launch.json.old .vscode/launch.json
+    12c12
+    <             "logLevel": "WARNING",               // default value.
+    ---
+    >             "logLevel": "DEBUG",                 // e.g.
+    %
+
 
 ## __.vscode/tasks.json__
 
@@ -102,3 +162,4 @@ see [sample files](https://github.com/phoityne/hdx4vsc/configs).
 |stack clean & build|required|stack clean && stack build|task definition for F7 shortcut key.|
 |stack test|required|stack test|task definition for F8 shortcut key.|
 |stack watch|required|stack build --test --no-run-tests --file-watch|task definition for F6 shortcut key.|
+

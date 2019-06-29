@@ -1,7 +1,7 @@
 {
 	"name": "phoityne-vscode",
 	"displayName": "Haskell GHCi Debug Adapter Phoityne",
-	"version": "0.0.24",
+	"version": "0.0.25",
 	"publisher": "phoityne",
 	"description": "Haskell GHCi Debug Adapter Phoityne for Visual Studio Code.",
 	"categories": [
@@ -125,12 +125,12 @@
 							"workspace": {
 								"type": "string",
 								"description": "Absolute path to the workspace.",
-								"default": "${workspaceRoot}"
+								"default": "${workspaceFolder}"
 							},
 							"startup": {
 								"type": "string",
 								"description": "Absolute path to the startup program.",
-								"default": "${workspaceRoot}/test/Spec.hs"
+								"default": "${workspaceFolder}/test/Spec.hs"
 							},
 							"startupFunc": {
 								"type": "string",
@@ -175,7 +175,7 @@
 							"logFile": {
 								"type": "string",
 								"description": "Absolute path to the log file.",
-								"default": "${workspaceRoot}/.vscode/phoityne.log"
+								"default": "${workspaceFolder}/.vscode/phoityne.log"
 							},
 							"logLevel": {
 								"type": "string",
@@ -196,8 +196,8 @@
 						"request": "launch",
 						"name": "haskell-debug-adapter",
 						"internalConsoleOptions": "openOnSessionStart",
-						"workspace": "${workspaceRoot}",
-						"startup": "${workspaceRoot}/test/Spec.hs",
+						"workspace": "${workspaceFolder}",
+						"startup": "${workspaceFolder}/test/Spec.hs",
 						"startupFunc": "",
 						"startupArgs": "",
 						"stopOnEntry": false,
@@ -206,7 +206,7 @@
 						"ghciInitialPrompt": "Prelude>",
 						"ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
 						"ghciEnv": {},
-						"logFile": "${workspaceRoot}/.vscode/phoityne.log",
+						"logFile": "${workspaceFolder}/.vscode/phoityne.log",
 						"logLevel": "WARNING",
 						"forceInspect": false
 					}
