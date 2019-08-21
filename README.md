@@ -1,30 +1,61 @@
 
 # Requirements
 
- Install [haskell-dap](https://hackage.haskell.org/package/haskell-dap), [ghci-dap](https://hackage.haskell.org/package/ghci-dap), [haskell-debug-adapter](https://hackage.haskell.org/package/haskell-debug-adapter) at once.
+ Install the haskell packages [phoityne-vscode](https://hackage.haskell.org/package/phoityne-vscode) and [haskell-dap](https://hackage.haskell.org/package/haskell-dap):
 
-```
-> stack install haskell-dap ghci-dap haskell-debug-adapter
->
+```shell
+> stack install phoityne-vscode haskell-dap
 ```
 
+From the VSCode menu: `Debug` -> `Open Configurations` and then edit `launch.json` to add "--with-ghc=haskell-dap" to ghciCmd variable:
+
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "ghc",
+            "request": "launch",
+            "name": "haskell-debug-adapter",
+            "internalConsoleOptions": "openOnSessionStart",
+            "workspace": "${workspaceRoot}",
+            "startup": "${workspaceRoot}/test/Spec.hs",
+            "startupFunc": "",
+            "startupArgs": "",
+            "stopOnEntry": false,
+            "mainArgs": "",
+            "ghciPrompt": "H>>= ",
+            "ghciInitialPrompt": "Prelude>",
+            "ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
+            "ghciEnv": {},
+            "logFile": "${workspaceRoot}/.vscode/phoityne.log",
+            "logLevel": "WARNING",
+            "forceInspect": false
+        }
+    ]
+}
+```
 
 # Limitations
+
 * Supported ghc-8.4, 8.6, ~~8.8~~
 * The source file extension must be ".hs"
 * Can not use STDIN handle while debugging. 
 * Using ghc-8.0, 8.2, see the [README](https://github.com/phoityne/hdx4vsc/blob/master/README_ghc86.md).
 * Using ghc7, see the [README](https://github.com/phoityne/hdx4vsc/blob/master/README_ghc7.md).
-
   
 # Features
 
 ## Quick Setup
+
 ![07_construct_dev.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/07_construct_dev.gif)
 
-
 ## Quick Start Debugging
-This is a new experimental feature.   
+
+This is a new experimental feature.
 __Note!!__, This function will automatically change the .vscode / launch.json file.  
 ![06_quick_start.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/06_quick_start.gif)
 
@@ -32,18 +63,15 @@ __Note!!__, This function will automatically change the .vscode / launch.json fi
 
 ![01_F5_F10_F11.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/01_F5_F10_F11.gif)
 
-
 ## Stacktrace
 
 The variable added to watch will be forced.
 
 ![03_stacktrace.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/03_stacktrace.gif)
 
-
 ## Bindings
 
 ![04_variables.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/04_variables.gif)
-
 
 ## Break condition
 
@@ -53,25 +81,25 @@ The variable added to watch will be forced.
 
 ![02_console_out.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/02_console_out.gif)
 
-
 # Shortcut keys
 
 When you start debugging for the first time, .vscode/tasks.json will be created automatically. Then you can use F6, F7, F8 shortcut keys.
-  * F5 : start debug
-  * F6 : show command menu (for stack watch)
-  * Shift + F6 : stop stack watch
-  * F7 : stack clean & build
-  * F8 : stack test
-  * F9 : put a breakpoint on the current line
-  * Shift + F9 : put a breakpoint on the current column
+
+* F5 : start debug
+* F6 : show command menu (for stack watch)
+* Shift + F6 : stop stack watch
+* F7 : stack clean & build
+* F8 : stack test
+* F9 : put a breakpoint on the current line
+* Shift + F9 : put a breakpoint on the current column
 
 While debugging, you can use F5, F9, F10, F11 shortcut keys.
-  * F5 : jump to next bp
-  * F9 : put bp on the line
-  * Shift + F9 : put bp on the column
-  * F10 : step next
-  * F11 : step into
 
+* F5 : jump to next bp
+* F9 : put bp on the line
+* Shift + F9 : put bp on the column
+* F10 : step next
+* F11 : step into
 
 # Configuration
 
