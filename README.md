@@ -6,6 +6,13 @@
 ```
 > stack install haskell-dap ghci-dap haskell-debug-adapter
 >
+> ghci-dap --version
+[DAP][INFO] start ghci-dap-0.0.XX.0.
+The Glorious Glasgow Haskell Compilation System, version 8.X.X
+>
+> haskell-debug-adapter --version
+VERSION: haskell-debug-adapter-0.0.XX.0
+>
 ```
 
 
@@ -19,39 +26,8 @@
   
 # Features
 
-## Quick Setup
-![07_construct_dev.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/07_construct_dev.gif)
-
-
-## Quick Start Debugging
-This is a new experimental feature.   
-__Note!!__, This function will automatically change the .vscode / launch.json file.  
-![06_quick_start.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/06_quick_start.gif)
-
-## Continue & Steps
-
-![01_F5_F10_F11.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/01_F5_F10_F11.gif)
-
-
-## Stacktrace
-
-The variable added to watch will be forced.
-
-![03_stacktrace.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/03_stacktrace.gif)
-
-
-## Bindings
-
-![04_variables.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/04_variables.gif)
-
-
-## Break condition
-
-![05_break_cond.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/05_break_cond.gif)
-
-## Console output
-
-![02_console_out.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/02_console_out.gif)
+## Quickstart
+![08_quickstart.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/08_quickstart.gif)
 
 
 # Shortcut keys

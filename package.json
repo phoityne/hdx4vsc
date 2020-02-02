@@ -21,6 +21,9 @@
 	"engines": {
 		"vscode": "^1.27.0"
 	},
+	"extensionDependencies": [
+		"justusadam.language-haskell"
+	],
 	"dependencies": {},
 	"icon": "images/HaskellLogo.png",
 	"keywords": [
@@ -31,8 +34,7 @@
 		"stack"
 	],
 	"activationEvents": [
-		"onCommand:extension.hdx4vsc.haskellDebuggingFromEditor",
-		"onCommand:extension.hdx4vsc.haskellDebuggingFromExplore"
+		"onLanguage:haskell"
 	],
 	"main": "./out/extension",
 	"contributes": {
@@ -223,9 +225,9 @@
 	},
 	"devDependencies": {
 		"@types/mocha": "^2.2.42",
-		"@types/node": "^8.10.25",
-		"tslint": "^5.13.0",
+		"@types/node": "^8.10.59",
+		"tslint": "^5.20.1",
 		"typescript": "^2.9.2",
-		"vscode": "^1.1.21"
+		"vscode": "^1.1.36"
 	}
 }

@@ -2,12 +2,43 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as fs from 'fs';
+const path = require('path');
+
+let logger : vscode.OutputChannel = vscode.window.createOutputChannel("haskell-debug-adapter");
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+    logger.clear();
+    logger.appendLine("[HASKELL][INFO] Activating.");
+
     context.subscriptions.push(vscode.commands.registerCommand('extension.hdx4vsc.haskellDebuggingFromEditor',  startHaskellDebuggingFromEditor));
     context.subscriptions.push(vscode.commands.registerCommand('extension.hdx4vsc.haskellDebuggingFromExplore', startHaskellDebuggingFromExplore));
+
+    if (vscode.workspace.workspaceFolders && 1 === vscode.workspace.workspaceFolders.length) {
+
+        const wd = vscode.workspace.workspaceFolders[0].uri.fsPath;
+        logger.appendLine("[HASKELL][INFO] preparing tasks.json file in " + wd);
+
+        const vd = path.join(wd, ".vscode");
+        if (!fs.existsSync(vd)) {
+            logger.appendLine("[HASKELL][INFO] create .vscode folder. <" + vd + ">");
+            fs.mkdirSync(vd);
+        } else {
+            logger.appendLine("[HASKELL][INFO] .vscode folder exists.");
+        }
+
+        const ep = path.join(vd, "tasks.json");
+        if (!fs.existsSync(ep)) {
+            logger.appendLine("[HASKELL][INFO] create tasks.json file. <" + ep + ">");
+            fs.writeFileSync(ep, tasks_json);
+        } else {
+            logger.appendLine("[HASKELL][INFO] tasks.json file exists.");
+        }
+    }
+
+    logger.appendLine("[HASKELL][INFO] Activated.");
 }
 
 // this method is called when your extension is deactivated
@@ -29,28 +60,28 @@ function startHaskellDebuggingFromEditor(fileUri:vscode.Uri) {
     const selection = editor.selection;
     const text = editor.document.lineAt(selection.start.line).text;
 
-    console.log("[HASKELL][DEBUG]:startFile: " +  startFile);
-    console.log("[HASKELL][DEBUG]:selected line: " +  selection.start.line);
-    console.log("[HASKELL][DEBUG]:selected text: " +  text);
+    logger.appendLine("[HASKELL][DEBUG] startFile: " +  startFile);
+    logger.appendLine("[HASKELL][DEBUG] selected line: " +  selection.start.line);
+    logger.appendLine("[HASKELL][DEBUG] selected text: " +  text);
 
     const funcName = getFuncName(text);
     if (funcName === null) {
         vscode.window.showErrorMessage('[HASKELL][ERROR] can not get function name. select the function definition line.');
-        return; 
-    }      
-    console.log("[HASKELL][DEBUG]:function: " +  funcName);
+        return;
+    }
+    logger.appendLine("[HASKELL][DEBUG] function: " +  funcName);
 
     if (false === isNeedArgs(editor, funcName)) {
-        vscode.window.showInformationMessage("Start Haskell Debugging on " + funcName + " with no arguments.");
+        vscode.window.showInformationMessage("[HASKELL][INFO] Start Haskell Debugging on " + funcName + " with no arguments.");
 
         runDebugger(fileUri, startFile, funcName, "");
 
     } else {
         const val = getFuncValArgs(fileUri);
-        const options: vscode.InputBoxOptions = { 
+        const options: vscode.InputBoxOptions = {
             prompt: "put arguments of function \"" + funcName + "\".",
             value: val};
-   
+
         vscode.window.showInputBox(options).then(value => {
             const args = !value ? val : value;
 
@@ -75,9 +106,9 @@ function startHaskellDebuggingFromExplore(fileUri:vscode.Uri) {
     //}
     //
 
-    console.log("[HASKELL][DEBUG]:startFile: " +  startFile);
-    console.log("[HASKELL][DEBUG]:function: " +  funcName);
-    console.log("[HASKELL][DEBUG]:arguments: " +  args);
+    logger.appendLine("[HASKELL][DEBUG] startFile: " +  startFile);
+    logger.appendLine("[HASKELL][DEBUG] function: " +  funcName);
+    logger.appendLine("[HASKELL][DEBUG] arguments: " +  args);
 
     runDebugger(fileUri, startFile, funcName, args);
 }
@@ -90,7 +121,7 @@ function getFuncValArgs(fileUri:vscode.Uri) {
     const confName = 'haskell-debug-adapter';
     let launch = vscode.workspace.getConfiguration('launch', fileUri);
     let confs = launch.get<any[]>('configurations');
-    
+
     if (!confs) {
         vscode.window.showErrorMessage('[HASKELL][CRITICAL] can not get launch configurations section. ' + confs);
         return "";
@@ -102,7 +133,7 @@ function getFuncValArgs(fileUri:vscode.Uri) {
         }
 
         return confs[i]['startupArgs'];
-    }    
+    }
 
     return "";
 }
@@ -115,7 +146,7 @@ function runDebugger(fileUri:vscode.Uri, startFile:string, funcName:string, args
     const confName = 'haskell-debug-adapter';
     let launch = vscode.workspace.getConfiguration('launch', fileUri);
     let confs = launch.get<any[]>('configurations');
-    
+
     if (!confs) {
         vscode.window.showErrorMessage('[HASKELL][CRITICAL] can not get launch configurations section. ' + confs);
         return;
@@ -133,7 +164,7 @@ function runDebugger(fileUri:vscode.Uri, startFile:string, funcName:string, args
         hasSetVal = true;
 
         break;
-    }    
+    }
 
     if (false === hasSetVal) {
         vscode.window.showErrorMessage('[HASKELL][ERROR] not found "' + confName + '" configurations. ' + confs);
@@ -181,7 +212,7 @@ function isNeedArgs(editor:vscode.TextEditor, funcName:string) : boolean {
             }
 
         } else {
-            console.log("[HASKELL][WARNING] can not find function implementation. " + funcName);
+            logger.appendLine("[HASKELL][WARNING] can not find function implementation. " + funcName);
             return true;
         }
 
@@ -221,23 +252,24 @@ function isNeedArgs(editor:vscode.TextEditor, funcName:string) : boolean {
             }
 
         } else {
-            console.log("[HASKELL][INFO] can not find function type definition. " + funcName);
+            logger.appendLine("[HASKELL][INFO] can not find function type definition. " + funcName);
             return true;
         }
     }
 }
 
+
 //
 //
 function getFuncName(line:string) {
-    
+
     let funcName = "";
 
     let m = line.match(/^(\S+)/);
     if (m !== null) {
         funcName = m[0];
     } else {
-        return null; 
+        return null;
     }
 
     const ignores = ['module',
@@ -247,7 +279,7 @@ function getFuncName(line:string) {
                      'data',
                      'type',
                      'newtype'];
-    
+
     if (0 <= ignores.indexOf(funcName)) {
         return null;
     }
@@ -260,4 +292,53 @@ function getFuncName(line:string) {
 }
 
 
+//
+//
+let tasks_json : string = `
+{
+  // Automatically created by phoityne-vscode extension.
+
+  "version": "2.0.0",
+  "presentation": {
+    "reveal": "always",
+    "panel": "new"
+  },
+  "tasks": [
+    {
+      // F7
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "label": "stack build",
+      "type": "shell",
+      "command": "cd \${workspaceRoot} && stack build"
+    },
+    {
+      // F6
+      "group": "build",
+      "type": "shell",
+      "label": "stack clean & build",
+      "command": "cd \${workspaceRoot} && stack clean && stack build"
+    },
+    {
+      // F8
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "type": "shell",
+      "label": "stack test",
+      "command": "cd \${workspaceRoot} && stack test"
+    },
+    {
+      // F6
+      "isBackground": true,
+      "type": "shell",
+      "label": "stack watch",
+      "command": "cd \${workspaceRoot} && stack build --test --no-run-tests --file-watch"
+    }
+  ]
+}
+`;
 
