@@ -32,7 +32,7 @@ VERSION: haskell-debug-adapter-0.0.XX.0
 
 # Shortcut keys
 
-  * F5 : start debug / continue debugging
+  * F5 : start / continue debugging
   * F6 : show command menu (for stack watch)
   * Shift + F6 : stop stack watch
   * F7 : stack clean & build
