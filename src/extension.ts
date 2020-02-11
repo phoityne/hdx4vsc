@@ -161,6 +161,7 @@ function runDebugger(fileUri:vscode.Uri, startFile:string, funcName:string, args
         confs[i]['startup']     = startFile;
         confs[i]['startupFunc'] = funcName;
         confs[i]['startupArgs'] = args;
+        confs[i]['stopOnEntry'] = true;
         hasSetVal = true;
 
         break;

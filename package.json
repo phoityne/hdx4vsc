@@ -12,10 +12,10 @@
 	},
 	"license": "BSD3",
 	"repository": {
-		"url": "https://github.com/phoityne/phoityne-vscode"
+		"url": "https://github.com/phoityne/hdx4vsc/"
 	},
 	"bugs": {
-		"url": "https://github.com/phoityne/phoityne-vscode/issues"
+		"url": "https://github.com/phoityne/hdx4vsc/issues"
 	},
 	"private": false,
 	"engines": {

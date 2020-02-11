@@ -17,7 +17,7 @@ VERSION: haskell-debug-adapter-0.0.XX.0
 
 
 # Limitations
-* Supported ghc-8.4, 8.6, ~~8.8~~
+* Supported ghc-8.8, ghc-8.6
 * The source file extension must be ".hs"
 * Can not use STDIN handle while debugging. 
 * Using ghc-8.0, 8.2, see the [README](https://github.com/phoityne/hdx4vsc/blob/master/README_ghc86.md).
@@ -32,22 +32,16 @@ VERSION: haskell-debug-adapter-0.0.XX.0
 
 # Shortcut keys
 
-When you start debugging for the first time, .vscode/tasks.json will be created automatically. Then you can use F6, F7, F8 shortcut keys.
-  * F5 : start debug
+  * F5 : start debug / continue debugging
   * F6 : show command menu (for stack watch)
   * Shift + F6 : stop stack watch
   * F7 : stack clean & build
   * F8 : stack test
   * F9 : put a breakpoint on the current line
   * Shift + F9 : put a breakpoint on the current column
-
-While debugging, you can use F5, F9, F10, F11 shortcut keys.
-  * F5 : jump to next bp
-  * F9 : put bp on the line
-  * Shift + F9 : put bp on the column
   * F10 : step next
   * F11 : step into
-
+  
 
 # Configuration
 
