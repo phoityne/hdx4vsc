@@ -313,14 +313,15 @@ let tasks_json : string = `
       },
       "label": "stack build",
       "type": "shell",
-      "command": "cd \${workspaceRoot} && stack build"
+      "command": "stack build"
     },
     {
       // F6
       "group": "build",
       "type": "shell",
       "label": "stack clean & build",
-      "command": "cd \${workspaceRoot} && stack clean && stack build"
+      "command": "stack clean && stack build"
+      //"command": "stack clean ; stack build"  // for powershell
     },
     {
       // F8
@@ -330,14 +331,14 @@ let tasks_json : string = `
       },
       "type": "shell",
       "label": "stack test",
-      "command": "cd \${workspaceRoot} && stack test"
+      "command": "stack test"
     },
     {
       // F6
       "isBackground": true,
       "type": "shell",
       "label": "stack watch",
-      "command": "cd \${workspaceRoot} && stack build --test --no-run-tests --file-watch"
+      "command": "stack build --test --no-run-tests --file-watch"
     }
   ]
 }

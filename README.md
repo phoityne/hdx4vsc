@@ -20,8 +20,6 @@ VERSION: haskell-debug-adapter-0.0.XX.0
 * Supported ghc-8.8, ghc-8.6
 * The source file extension must be ".hs"
 * Can not use STDIN handle while debugging. 
-* Using ghc-8.0, 8.2, see the [README](https://github.com/phoityne/hdx4vsc/blob/master/README_ghc86.md).
-* Using ghc7, see the [README](https://github.com/phoityne/hdx4vsc/blob/master/README_ghc7.md).
 
   
 # Features
