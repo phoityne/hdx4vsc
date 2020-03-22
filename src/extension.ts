@@ -11,7 +11,7 @@ let logger : vscode.OutputChannel = vscode.window.createOutputChannel("haskell-d
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
     logger.clear();
-    logger.appendLine("[HASKELL][INFO] Activating.");
+    logger.appendLine("[INFO] Activating.");
 
     context.subscriptions.push(vscode.commands.registerCommand('extension.hdx4vsc.haskellDebuggingFromEditor',  startHaskellDebuggingFromEditor));
     context.subscriptions.push(vscode.commands.registerCommand('extension.hdx4vsc.haskellDebuggingFromExplore', startHaskellDebuggingFromExplore));
@@ -19,26 +19,26 @@ export function activate(context: vscode.ExtensionContext) {
     if (vscode.workspace.workspaceFolders && 1 === vscode.workspace.workspaceFolders.length) {
 
         const wd = vscode.workspace.workspaceFolders[0].uri.fsPath;
-        logger.appendLine("[HASKELL][INFO] preparing tasks.json file in " + wd);
+        logger.appendLine("[INFO] preparing tasks.json file in " + wd);
 
         const vd = path.join(wd, ".vscode");
         if (!fs.existsSync(vd)) {
-            logger.appendLine("[HASKELL][INFO] create .vscode folder. <" + vd + ">");
+            logger.appendLine("[INFO] create .vscode folder. <" + vd + ">");
             fs.mkdirSync(vd);
         } else {
-            logger.appendLine("[HASKELL][INFO] .vscode folder exists.");
+            logger.appendLine("[INFO] .vscode folder exists.");
         }
 
         const ep = path.join(vd, "tasks.json");
         if (!fs.existsSync(ep)) {
-            logger.appendLine("[HASKELL][INFO] create tasks.json file. <" + ep + ">");
+            logger.appendLine("[INFO] create tasks.json file. <" + ep + ">");
             fs.writeFileSync(ep, tasks_json);
         } else {
-            logger.appendLine("[HASKELL][INFO] tasks.json file exists.");
+            logger.appendLine("[INFO] tasks.json file exists.");
         }
     }
 
-    logger.appendLine("[HASKELL][INFO] Activated.");
+    logger.appendLine("[INFO] Activated.");
 }
 
 // this method is called when your extension is deactivated
@@ -60,16 +60,16 @@ function startHaskellDebuggingFromEditor(fileUri:vscode.Uri) {
     const selection = editor.selection;
     const text = editor.document.lineAt(selection.start.line).text;
 
-    logger.appendLine("[HASKELL][DEBUG] startFile: " +  startFile);
-    logger.appendLine("[HASKELL][DEBUG] selected line: " +  selection.start.line);
-    logger.appendLine("[HASKELL][DEBUG] selected text: " +  text);
+    logger.appendLine("[DEBUG] startFile: " +  startFile);
+    logger.appendLine("[DEBUG] selected line: " +  selection.start.line);
+    logger.appendLine("[DEBUG] selected text: " +  text);
 
     const funcName = getFuncName(text);
     if (funcName === null) {
         vscode.window.showErrorMessage('[HASKELL][ERROR] can not get function name. select the function definition line.');
         return;
     }
-    logger.appendLine("[HASKELL][DEBUG] function: " +  funcName);
+    logger.appendLine("[DEBUG] function: " +  funcName);
 
     if (false === isNeedArgs(editor, funcName)) {
         vscode.window.showInformationMessage("[HASKELL][INFO] Start Haskell Debugging on " + funcName + " with no arguments.");
@@ -106,9 +106,9 @@ function startHaskellDebuggingFromExplore(fileUri:vscode.Uri) {
     //}
     //
 
-    logger.appendLine("[HASKELL][DEBUG] startFile: " +  startFile);
-    logger.appendLine("[HASKELL][DEBUG] function: " +  funcName);
-    logger.appendLine("[HASKELL][DEBUG] arguments: " +  args);
+    logger.appendLine("[DEBUG] startFile: " +  startFile);
+    logger.appendLine("[DEBUG] function: " +  funcName);
+    logger.appendLine("[DEBUG] arguments: " +  args);
 
     runDebugger(fileUri, startFile, funcName, args);
 }
@@ -161,7 +161,6 @@ function runDebugger(fileUri:vscode.Uri, startFile:string, funcName:string, args
         confs[i]['startup']     = startFile;
         confs[i]['startupFunc'] = funcName;
         confs[i]['startupArgs'] = args;
-        confs[i]['stopOnEntry'] = true;
         hasSetVal = true;
 
         break;
@@ -213,7 +212,7 @@ function isNeedArgs(editor:vscode.TextEditor, funcName:string) : boolean {
             }
 
         } else {
-            logger.appendLine("[HASKELL][WARNING] can not find function implementation. " + funcName);
+            logger.appendLine("[WARNING] can not find function implementation. " + funcName);
             return true;
         }
 
@@ -253,7 +252,7 @@ function isNeedArgs(editor:vscode.TextEditor, funcName:string) : boolean {
             }
 
         } else {
-            logger.appendLine("[HASKELL][INFO] can not find function type definition. " + funcName);
+            logger.appendLine("[INFO] can not find function type definition. " + funcName);
             return true;
         }
     }
