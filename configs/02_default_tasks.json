@@ -1,6 +1,6 @@
 {
   // atuomatically created by phoityne-vscode
-  
+
   "version": "2.0.0",
   "presentation": {
     "reveal": "always",
@@ -14,28 +14,36 @@
       },
       "label": "stack build",
       "type": "shell",
-      "command": "echo START_STACK_BUILD && cd ${workspaceRoot} && stack build && echo END_STACK_BUILD "
+      "command": "stack build"
+      // for windows.
+      // "command": "chcp 65001 && stack build"
+      //
+      // for powershell.
+      // "command": "chcp 65001 ; stack build"
+      //
+      // for cabal.
+      // "command": "cabal build"
     },
-    { 
+    {
       "group": "build",
       "type": "shell",
       "label": "stack clean & build",
-      "command": "echo START_STACK_CLEAN_AND_BUILD && cd ${workspaceRoot} && stack clean && stack build && echo END_STACK_CLEAN_AND_BUILD "
+      "command": "cd ${workspaceFolder} && stack clean && stack build"
     },
-    { 
+    {
       "group": {
         "kind": "test",
         "isDefault": true
       },
       "type": "shell",
       "label": "stack test",
-      "command": "echo START_STACK_TEST && cd ${workspaceRoot} && stack test && echo END_STACK_TEST "
+      "command": "stack test"
     },
-    { 
+    {
       "isBackground": true,
       "type": "shell",
       "label": "stack watch",
-      "command": "echo START_STACK_WATCH && cd ${workspaceRoot} && stack build --test --no-run-tests --file-watch && echo END_STACK_WATCH "
+      "command": "stack build --test --no-run-tests --file-watch"
     }
   ]
 }

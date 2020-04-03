@@ -56,7 +56,7 @@ see [sample files](https://github.com/phoityne/hdx4vsc/tree/master/configs).
 |mainArgs|optional|"" (empty string)|main arguments.|
 |ghciPrompt|required|H>>=|ghci command prompt string.|
 |ghciInitialPrompt|optional|"Prelude> "|initial pormpt of ghci. set it when using custom prompt. e.g. set in .ghci|
-|ghciCmd|required|stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show|launch ghci command, must be Prelude module loaded. For example, "ghci -i${workspaceRoot}/src", "cabal exec -- ghci -i${workspaceRoot}/src"|
+|ghciCmd|required|stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show|launch ghci command, must be Prelude module loaded. For example, "cabal exec -- ghci-dap --interactive -i${workspaceFolder}/src"|
 |ghciEnv|required|[]|Environment variables for ghci exectution.|
 |logFile|required|${workspaceRoot}/.vscode/phoityne.log|internal log file.|
 |logLevel|required|WARNING|internal log level.|
