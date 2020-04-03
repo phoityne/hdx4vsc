@@ -9,8 +9,8 @@
             "request": "launch",
             "name": "haskell-debug-adapter",
             "internalConsoleOptions": "openOnSessionStart",
-            "workspace": "${workspaceRoot}",
-            "startup": "${workspaceRoot}/test/Spec.hs",
+            "workspace": "${workspaceFolder}",
+            "startup": "${workspaceFolder}/test/Spec.hs",
             "startupFunc": "",
             "startupArgs": "",
             "stopOnEntry": false,
@@ -19,7 +19,7 @@
             "ghciInitialPrompt": "Prelude>",
             "ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
             "ghciEnv": {},
-            "logFile": "${workspaceRoot}/.vscode/phoityne.log",
+            "logFile": "${workspaceFolder}/.vscode/phoityne.log",
             "logLevel": "WARNING",
             "forceInspect": false
         }

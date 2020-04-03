@@ -9,8 +9,8 @@
             "request": "launch",
             "name": "haskell-debug-adapter",
             "internalConsoleOptions": "openOnSessionStart",
-            "workspace": "${workspaceRoot}",
-            "startup": "${workspaceRoot}/Main.hs",
+            "workspace": "${workspaceFolder}",
+            "startup": "${workspaceFolder}/Main.hs",
             "startupFunc": "",
             "startupArgs": "",
             "stopOnEntry": false,
@@ -19,7 +19,7 @@
             "ghciInitialPrompt": "Prelude>",
             "ghciCmd": "cabal exec -- ghci-dap --interactive -i${workspaceFolder}",
             "ghciEnv": {},
-            "logFile": "${workspaceRoot}/.vscode/phoityne.log",
+            "logFile": "${workspaceFolder}/.vscode/phoityne.log",
             "logLevel": "WARNING",
             "forceInspect": false
         }
