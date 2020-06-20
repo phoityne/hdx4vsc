@@ -17,7 +17,7 @@
             "mainArgs": "",
             "ghciPrompt": "H>>= ",
             "ghciInitialPrompt": "Prelude>",
-            "ghciCmd": "cabal exec -- ghci-dap --interactive -i${workspaceFolder}",
+            "ghciCmd": "cabal exec -- ghci-dap --interactive -i -i${workspaceFolder}",
             "ghciEnv": {},
             "logFile": "${workspaceFolder}/.vscode/phoityne.log",
             "logLevel": "WARNING",
