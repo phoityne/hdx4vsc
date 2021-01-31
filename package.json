@@ -1,7 +1,7 @@
 {
 	"name": "phoityne-vscode",
 	"displayName": "Haskell GHCi Debug Adapter Phoityne",
-	"version": "0.0.25",
+	"version": "0.0.26",
 	"publisher": "phoityne",
 	"description": "Haskell GHCi Debug Adapter Phoityne for Visual Studio Code.",
 	"categories": [
@@ -31,6 +31,7 @@
 		"haskell",
 		"ghc",
 		"ghci",
+		"cabal",
 		"stack"
 	],
 	"activationEvents": [
@@ -91,16 +92,16 @@
 				"when": "resourceLangId == haskell && editorTextFocus && !inDebugMode"
 			}
 		],
+	    "breakpoints": [
+            {
+                "language": "haskell"
+            }
+        ],
 		"debuggers": [
 			{
 				"type": "ghc",
 				"label": "haskell-debug-adapter",
-				"enableBreakpointsFor": {
-					"languageIds": [
-						"haskell"
-					]
-				},
-				"windows": {
+    			"windows": {
 					"program": "phoityne-vscode.bat"
 				},
 				"osx": {
@@ -196,7 +197,7 @@
 					{
 						"type": "ghc",
 						"request": "launch",
-						"name": "haskell-debug-adapter",
+						"name": "haskell(stack)",
 						"internalConsoleOptions": "openOnSessionStart",
 						"workspace": "${workspaceFolder}",
 						"startup": "${workspaceFolder}/test/Spec.hs",
@@ -207,6 +208,25 @@
 						"ghciPrompt": "H>>= ",
 						"ghciInitialPrompt": "Prelude>",
 						"ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET",
+						"ghciEnv": {},
+						"logFile": "${workspaceFolder}/.vscode/phoityne.log",
+						"logLevel": "WARNING",
+						"forceInspect": false
+					},
+					{
+						"type": "ghc",
+						"request": "launch",
+						"name": "haskell(cabal)",
+						"internalConsoleOptions": "openOnSessionStart",
+						"workspace": "${workspaceFolder}",
+						"startup": "${workspaceFolder}/Main.hs",
+						"startupFunc": "",
+						"startupArgs": "",
+						"stopOnEntry": false,
+						"mainArgs": "",
+						"ghciPrompt": "H>>= ",
+						"ghciInitialPrompt": "Prelude>",
+						"ghciCmd": "cabal exec -- ghci-dap --interactive -i -i${workspaceFolder}",
 						"ghciEnv": {},
 						"logFile": "${workspaceFolder}/.vscode/phoityne.log",
 						"logLevel": "WARNING",

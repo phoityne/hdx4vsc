@@ -310,15 +310,17 @@ let tasks_json : string = `
         "kind": "build",
         "isDefault": true
       },
-      "label": "stack build",
+      "label": "haskell build",
       "type": "shell",
+      //"command": "cabal configure && cabal build"
       "command": "stack build"
     },
     {
       // F6
       "group": "build",
       "type": "shell",
-      "label": "stack clean & build",
+      "label": "haskell clean & build",
+      //"command": "cabal clean && cabal configure && cabal build"
       "command": "stack clean && stack build"
       //"command": "stack clean ; stack build"  // for powershell
     },
@@ -329,14 +331,15 @@ let tasks_json : string = `
         "isDefault": true
       },
       "type": "shell",
-      "label": "stack test",
+      "label": "haskell test",
+      //"command": "cabal test"
       "command": "stack test"
     },
     {
       // F6
       "isBackground": true,
       "type": "shell",
-      "label": "stack watch",
+      "label": "haskell watch",
       "command": "stack build --test --no-run-tests --file-watch"
     }
   ]

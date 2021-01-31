@@ -1,46 +1,95 @@
 
-# Requirements
-
- Install [haskell-dap](https://hackage.haskell.org/package/haskell-dap), [ghci-dap](https://hackage.haskell.org/package/ghci-dap), [haskell-debug-adapter](https://hackage.haskell.org/package/haskell-debug-adapter) at once.
-
-```
-> stack install haskell-dap ghci-dap haskell-debug-adapter
->
-> ghci-dap --version
-[DAP][INFO] start ghci-dap-0.0.XX.0.
-The Glorious Glasgow Haskell Compilation System, version 8.X.X
->
-> haskell-debug-adapter --version
-VERSION: haskell-debug-adapter-0.0.XX.0
->
-```
-
-
-# Limitations
-* Supported ghc-8.8, ghc-8.6
-* The source file extension must be ".hs"
-* Can not use STDIN handle while debugging. 
-
-  
 # Features
-
-## Quickstart
-![08_quickstart.gif](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/08_quickstart.gif)
-
-
-# Shortcut keys
-
+* Supported ghc-8.10, ghc-8.8
+* The source file extension must be ".hs"
+* Can not use STDIN handle while debugging.
+* Creating tasks.json.
+* Shortcut keys
   * F5 : start / continue debugging
-  * F6 : show command menu (for stack watch)
-  * Shift + F6 : stop stack watch
-  * F7 : stack clean & build
-  * F8 : stack test
+  * F6 : show command menu
+  * Shift + F6 : stop watch
+  * F7 : clean & build
+  * F8 : start test
   * F9 : put a breakpoint on the current line
   * Shift + F9 : put a breakpoint on the current column
   * F10 : step next
   * F11 : step into
-  
 
+
+# Install
+
+## Stack
+ Install [haskell-dap](https://hackage.haskell.org/package/haskell-dap), [ghci-dap](https://hackage.haskell.org/package/ghci-dap), [haskell-debug-adapter](https://hackage.haskell.org/package/haskell-debug-adapter) at once.
+
+```
+$ stack update
+$
+$ stack install haskell-dap ghci-dap haskell-debug-adapter
+$
+$ ghci-dap --version
+[DAP][INFO] start ghci-dap-0.0.XX.0.
+The Glorious Glasgow Haskell Compilation System, version 8.X.X
+$
+$ haskell-debug-adapter --version
+VERSION: haskell-debug-adapter-0.0.XX.0
+$
+```
+
+## Cabal
+ Install [ghci-dap](https://hackage.haskell.org/package/ghci-dap), [haskell-debug-adapter](https://hackage.haskell.org/package/haskell-debug-adapter).
+
+```
+$ cabal update
+$
+$ cabal install ghci-dap haskell-debug-adapter
+$
+$ haskell-debug-adapter --version
+VERSION: haskell-debug-adapter-0.0.XX.0
+$
+```
+
+
+# Run
+## 1. Create a project
+### Stack project
+```
+$ mkdir project_stack
+$ cd project_stack
+$
+$ stack new sample --bare
+$ stack test
+$
+```
+
+### Cabal project
+```
+$ mkdir project_cabal
+$ cd project_cabal
+$
+$ cabal init
+$ cabal configure
+$ cabal bulid
+$
+```
+
+## 2. VSCode debug setting
+![01_create_launch.png](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/2021_readme/01_create_launch.png)
+![02_create_launch.png](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/2021_readme/02_create_launch.png)
+
+## 3. Select a debug configuration
+### Stack project
+
+![03_select_stack.png](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/2021_readme/03_select_stack.png)
+
+### Cabal project
+![03_select_cabal.png](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/2021_readme/03_select_cabal.png)
+
+
+## 4. Put a breakpoint
+![04_bp.png](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/2021_readme/04_bp.png)
+## 5. Start debugging
+![05_run.png](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/2021_readme/05_run.png)
+![06_break.png](https://raw.githubusercontent.com/phoityne/hdx4vsc/master/docs/2021_readme/06_break.png)
 # Configuration
 
 see [sample files](https://github.com/phoityne/hdx4vsc/tree/master/configs).
@@ -62,11 +111,3 @@ see [sample files](https://github.com/phoityne/hdx4vsc/tree/master/configs).
 |logLevel|required|WARNING|internal log level.|
 |forceInspect|required|false|Inspect scope variables force.|
 
-## __.vscode/tasks.json__
-
-|TASK NAME|REQUIRED OR OPTIONAL|DEFAULT SETTING|DESCRIPTION|
-|:--|:--:|:--|:--|
-|stack build|required|stack build|task definition for F6 shortcut key.|
-|stack clean & build|required|stack clean && stack build|task definition for F7 shortcut key.|
-|stack test|required|stack test|task definition for F8 shortcut key.|
-|stack watch|required|stack build --test --no-run-tests --file-watch|task definition for F6 shortcut key.|
