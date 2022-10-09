@@ -5,7 +5,7 @@ set hda_path=
 for /f "usebackq delims=" %%a in (`%where_hda%`) do set hda_path=%%a
 
 if "%hda_path%" neq "" (
-  haskell-debug-adapter.exes
+  haskell-debug-adapter.exe
 ) else (
   echo Content-Length: 199
   echo.
