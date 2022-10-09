@@ -4,7 +4,7 @@ src/**
 .gitignore
 tsconfig.json
 tslint.json
-README_ghc7.md
-README_ghc86.md
 docs/**
 configs
+node_modules
+create_package.sh

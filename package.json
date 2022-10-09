@@ -24,7 +24,9 @@
 	"extensionDependencies": [
 		"justusadam.language-haskell"
 	],
-	"dependencies": {},
+	"dependencies": {
+		"vsce": "^2.11.0"
+	},
 	"icon": "images/HaskellLogo.png",
 	"keywords": [
 		"debug",
@@ -92,16 +94,16 @@
 				"when": "resourceLangId == haskell && editorTextFocus && !inDebugMode"
 			}
 		],
-	    "breakpoints": [
-            {
-                "language": "haskell"
-            }
-        ],
+		"breakpoints": [
+			{
+				"language": "haskell"
+			}
+		],
 		"debuggers": [
 			{
 				"type": "ghc",
 				"label": "haskell-debug-adapter",
-    			"windows": {
+				"windows": {
 					"program": "phoityne-vscode.bat"
 				},
 				"osx": {
