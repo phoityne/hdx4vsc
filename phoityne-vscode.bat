@@ -4,14 +4,8 @@ set where_hda=where $path:haskell-debug-adapter.exe
 set hda_path=
 for /f "usebackq delims=" %%a in (`%where_hda%`) do set hda_path=%%a
 
-set where_pohityne=where $path:phoityne-vscode.exe
-set pohityne_path=
-for /f "usebackq delims=" %%a in (`%where_pohityne%`) do set pohityne_path=%%a
-
 if "%hda_path%" neq "" (
-  haskell-debug-adapter.exe --hackage-version=0.0.31.0
-) else if "%pohityne_path%" neq "" (
-  phoityne-vscode.exe --hackage-version=0.0.28.0
+  haskell-debug-adapter.exes
 ) else (
   echo Content-Length: 199
   echo.

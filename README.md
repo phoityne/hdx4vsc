@@ -1,6 +1,5 @@
 
 # Features
-* Supported ghc-8.10, ghc-8.8
 * The source file extension must be ".hs"
 * Can not use STDIN handle while debugging.
 * Creating tasks.json.
@@ -28,7 +27,7 @@ $ stack install haskell-dap ghci-dap haskell-debug-adapter
 $
 $ ghci-dap --version
 [DAP][INFO] start ghci-dap-0.0.XX.0.
-The Glorious Glasgow Haskell Compilation System, version 8.X.X
+The Glorious Glasgow Haskell Compilation System, version X.X.X
 $
 $ haskell-debug-adapter --version
 VERSION: haskell-debug-adapter-0.0.XX.0
