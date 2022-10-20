@@ -9,7 +9,7 @@ if "%hda_path%" neq "" (
 ) else (
   echo Content-Length: 199
   echo.
-  echo {"command":"initialize","success":false,"request_seq":1,"seq":1,"type":"response","message":"phoityne-vscode.exe is not found. Run 'stack install phoityne-vscode', and put it to PATH environment."}
+  echo {"command":"initialize","success":false,"request_seq":1,"seq":1,"type":"response","message":"haskell-debug-adapter is not found. Does your shell recognize haskell-debug-adapter?"}
   exit 1
 )
 

@@ -6,7 +6,7 @@ if [ "X" != "X$HDA_PATH" ]; then
   haskell-debug-adapter
 else
   echo -e "Content-Length: 194\r\n\r"
-  echo '{"command":"initialize","success":false,"request_seq":1,"seq":1,"type":"response","message":"phoityne-vscode is not found. Run `stack install phoityne-vscode`, and put it to PATH environment."}'
+  echo '{"command":"initialize","success":false,"request_seq":1,"seq":1,"type":"response","message":"haskell-debug-adapter is not found. Does your shell recognize haskell-debug-adapter?"}'
 
   exit 1
 fi
