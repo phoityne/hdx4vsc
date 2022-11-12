@@ -1,7 +1,7 @@
 {
 	"name": "phoityne-vscode",
 	"displayName": "Haskell GHCi Debug Adapter Phoityne",
-	"version": "0.0.28",
+	"version": "0.0.29",
 	"publisher": "phoityne",
 	"description": "Haskell GHCi Debug Adapter Phoityne for Visual Studio Code.",
 	"categories": [
@@ -228,7 +228,7 @@
 						"mainArgs": "",
 						"ghciPrompt": "H>>= ",
 						"ghciInitialPrompt": "> ",
-						"ghciCmd": "cabal exec -- ghci-dap --interactive -i -i${workspaceFolder}",
+						"ghciCmd": "cabal repl -w ghci-dap --repl-no-load --enable-tests",
 						"ghciEnv": {},
 						"logFile": "${workspaceFolder}/.vscode/phoityne.log",
 						"logLevel": "WARNING",
