@@ -170,7 +170,7 @@
 							"ghciCmd": {
 								"type": "string",
 								"description": "ghci command.",
-								"default": "stack ghci --test --no-load --no-build --main-is TARGET"
+								"default": "cabal repl -w ghci-dap --repl-no-load --builddir=${workspaceFolder}/.vscode/dist-cabal-repl"
 							},
 							"ghciEnv": {
 								"type": "object",
@@ -209,7 +209,7 @@
 						"mainArgs": "",
 						"ghciPrompt": "H>>= ",
 						"ghciInitialPrompt": "> ",
-						"ghciCmd": "stack ghci --test --no-load --no-build --main-is TARGET",
+						"ghciCmd": "stack ghci --with-ghc=ghci-dap --test --no-load --no-build --main-is TARGET",
 						"ghciEnv": {},
 						"logFile": "${workspaceFolder}/.vscode/phoityne.log",
 						"logLevel": "WARNING",
@@ -228,7 +228,7 @@
 						"mainArgs": "",
 						"ghciPrompt": "H>>= ",
 						"ghciInitialPrompt": "> ",
-						"ghciCmd": "cabal repl -w ghci-dap --repl-no-load --enable-tests",
+						"ghciCmd": "cabal repl -w ghci-dap --repl-no-load --builddir=${workspaceFolder}/.vscode/dist-cabal-repl",
 						"ghciEnv": {},
 						"logFile": "${workspaceFolder}/.vscode/phoityne.log",
 						"logLevel": "WARNING",
