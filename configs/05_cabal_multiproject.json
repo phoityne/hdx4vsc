@@ -1,0 +1,52 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "ghc",
+            "request": "launch",
+            "name": "componentA",
+            "internalConsoleOptions": "openOnSessionStart",
+            "workspace": "${workspaceFolder}",
+            "startup": "${workspaceFolder}/test/componentA/Main.hs",
+            "startupFunc": "",
+            "startupArgs": "",
+            "stopOnEntry": false,
+            "mainArgs": "",
+            "ghciPrompt": "H>>= ",
+            "ghciInitialPrompt": "> ",
+            "ghciCmd": "cabal repl --with-compiler ghci-dap --repl-no-load --builddir=${workspaceFolder}/.vscode/dist-cabal-repl componentA",
+            "ghciEnv": {},
+            "logFile": "${workspaceFolder}/.vscode/initialise-test.log",
+            "logLevel": "INFO",
+            "forceInspect": false
+        },
+        {
+            "type": "ghc",
+            "request": "launch",
+            "name": "componentB",
+            "internalConsoleOptions": "openOnSessionStart",
+            "workspace": "${workspaceFolder}",
+            "startup": "${workspaceFolder}/test/componentB/Main.hs",
+            "startupFunc": "",
+            "startupArgs": "",
+            "stopOnEntry": false,
+            "mainArgs": "",
+            "ghciPrompt": "H>>= ",
+            "ghciInitialPrompt": "> ",
+            "ghciCmd": "cabal repl --with-compiler ghci-dap --repl-no-load --builddir=${workspaceFolder}/.vscode/dist-cabal-repl componentB",
+            "ghciEnv": {},
+            "logFile": "${workspaceFolder}/.vscode/initialise-test.log",
+            "logLevel": "INFO",
+            "forceInspect": false
+        }
+    ],
+    "compounds": [
+        {
+            "name": "cabal",
+            "configurations": ["componentA", "componentB"]
+        }
+    ]
+}
