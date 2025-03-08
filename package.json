@@ -170,7 +170,7 @@
 							"ghciCmd": {
 								"type": "string",
 								"description": "ghci command.",
-								"default": "cabal repl -w ghci-dap --repl-no-load --builddir=${workspaceFolder}/.vscode/dist-cabal-repl"
+								"default": "ghci-dap"
 							},
 							"ghciEnv": {
 								"type": "object",
@@ -196,6 +196,25 @@
 					}
 				},
 				"initialConfigurations": [
+					{
+						"type": "ghc",
+						"request": "launch",
+						"name": "haskell(hie-bios)",
+						"internalConsoleOptions": "openOnSessionStart",
+						"workspace": "${workspaceFolder}",
+						"startup": "${workspaceFolder}/test/Spec.hs",
+						"startupFunc": "",
+						"startupArgs": "",
+						"stopOnEntry": false,
+						"mainArgs": "",
+						"ghciPrompt": "H>>= ",
+						"ghciInitialPrompt": "> ",
+						"ghciCmd": "ghci-dap",
+						"ghciEnv": {},
+						"logFile": "${workspaceFolder}/.vscode/phoityne.log",
+						"logLevel": "WARNING",
+						"forceInspect": false
+					},
 					{
 						"type": "ghc",
 						"request": "launch",

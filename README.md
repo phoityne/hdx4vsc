@@ -104,7 +104,7 @@ see [sample files](https://github.com/phoityne/hdx4vsc/tree/master/configs).
 |mainArgs|optional|"" (empty string)|main arguments.|
 |ghciPrompt|required|H>>=|ghci command prompt string.|
 |ghciInitialPrompt|optional|"Prelude> "|initial pormpt of ghci. set it when using custom prompt. e.g. set in .ghci|
-|ghciCmd|required|cabal repl -w ghci-dap --repl-no-load --builddir=${workspaceFolder/.vscode/dist-cabal-repl|launch ghci command.|
+|ghciCmd|required|cabal repl -w ghci-dap --repl-no-load --builddir=${workspaceFolder/.vscode/dist-cabal-repl|launch ghci command (special value `ghci-dap` will use hie-bios to determine appropriate flags).|
 |ghciEnv|required|{}|Environment variables for ghci exectution.|
 |logFile|required|${workspaceRoot}/.vscode/phoityne.log|internal log file.|
 |logLevel|required|WARNING|internal log level.|
