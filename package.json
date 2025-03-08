@@ -25,7 +25,8 @@
 		"justusadam.language-haskell"
 	],
 	"dependencies": {
-		"vsce": "^2.11.0"
+		"@vscode/vsce": "^3.2.2",
+		"vsce": "^2.15.0"
 	},
 	"icon": "images/HaskellLogo.png",
 	"keywords": [
@@ -259,16 +260,16 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
+		"compile": "./node_modules/typescript/bin/tsc -p ./",
+		"watch": "./node_modules/typescript/bin/tsc -watch -p ./",
 		"postinstall": "node ./node_modules/vscode/bin/install",
 		"test": "npm run compile && node ./node_modules/vscode/bin/test"
 	},
 	"devDependencies": {
 		"@types/mocha": "^2.2.42",
-		"@types/node": "^8.10.59",
+		"@types/node": "^8.10.66",
 		"tslint": "^5.20.1",
-		"typescript": "^2.9.2",
+		"typescript": "^5.8.2",
 		"vscode": "^1.1.37"
 	}
 }
