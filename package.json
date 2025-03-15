@@ -136,7 +136,7 @@
 							"startup": {
 								"type": "string",
 								"description": "Absolute path to the startup program.",
-								"default": "${workspaceFolder}/test/Spec.hs"
+								"default": "${workspaceFolder}/Main.hs"
 							},
 							"startupFunc": {
 								"type": "string",
@@ -203,7 +203,7 @@
 						"name": "haskell(hie-bios)",
 						"internalConsoleOptions": "openOnSessionStart",
 						"workspace": "${workspaceFolder}",
-						"startup": "${workspaceFolder}/test/Spec.hs",
+						"startup": "${workspaceFolder}/Main.hs",
 						"startupFunc": "",
 						"startupArgs": "",
 						"stopOnEntry": false,
@@ -260,8 +260,8 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
-		"compile": "./node_modules/typescript/bin/tsc -p ./",
-		"watch": "./node_modules/typescript/bin/tsc -watch -p ./",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
 		"postinstall": "node ./node_modules/vscode/bin/install",
 		"test": "npm run compile && node ./node_modules/vscode/bin/test"
 	},
