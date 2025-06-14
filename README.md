@@ -117,17 +117,6 @@ We are currently experimenting with **MCP (Model Context Protocol)** support for
 
 As part of this effort, we are exploring integration with [`pty-mcp-server`](https://github.com/phoityne/pty-mcp-server), a lightweight stdio-based MCP server that enables AI-assisted control over GHCi sessions.
 
-To support this, we have published a VS Code extension named [**pms-vscode**](https://github.com/phoityne/pms-vscode), which provides a frontend interface to `pty-mcp-server` inside the editor.  
-While `haskell-debug-adapter` and `pms-vscode` are developed as independent extensions and do not directly depend on each other in runtime, we have registered `pms-vscode` as a dependency of this extension.  
-This represents a potential direction for deeper collaboration in the future, as both tools evolve to support AI-driven and automated Haskell development workflows.
-
-
-## Experimental: MCP Integration
-
-We are currently experimenting with **MCP (Model Context Protocol)** support for `haskell-debug-adapter`.
-
-As part of this effort, we are exploring integration with [`pty-mcp-server`](https://github.com/phoityne/pty-mcp-server), a lightweight stdio-based MCP server that enables AI-assisted control over GHCi sessions.
-
 We have also developed a dedicated VS Code extension named [**pms-vscode**](https://github.com/phoityne/pms-vscode), which provides a frontend interface to `pty-mcp-server` within the editor.  
 Although `haskell-debug-adapter` and `pms-vscode` are implemented as independent extensions and operate separately, their collaboration may deepen in the future as part of broader efforts toward AI-driven and automated Haskell development tooling.
 
