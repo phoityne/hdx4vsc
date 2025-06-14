@@ -110,3 +110,48 @@ see [sample files](https://github.com/phoityne/hdx4vsc/tree/master/configs).
 |logLevel|required|WARNING|internal log level.|
 |forceInspect|required|false|Inspect scope variables force.|
 
+
+## Experimental: MCP Integration
+
+We are currently experimenting with **MCP (Model Context Protocol)** support for `haskell-debug-adapter`.
+
+As part of this effort, we are exploring integration with [`pty-mcp-server`](https://github.com/phoityne/pty-mcp-server), a lightweight stdio-based MCP server that enables AI-assisted control over GHCi sessions.
+
+To support this, we have published a VS Code extension named [**pms-vscode**](https://github.com/phoityne/pms-vscode), which provides a frontend interface to `pty-mcp-server` inside the editor.  
+While `haskell-debug-adapter` and `pms-vscode` are developed as independent extensions and do not directly depend on each other in runtime, we have registered `pms-vscode` as a dependency of this extension.  
+This represents a potential direction for deeper collaboration in the future, as both tools evolve to support AI-driven and automated Haskell development workflows.
+
+
+## Experimental: MCP Integration
+
+We are currently experimenting with **MCP (Model Context Protocol)** support for `haskell-debug-adapter`.
+
+As part of this effort, we are exploring integration with [`pty-mcp-server`](https://github.com/phoityne/pty-mcp-server), a lightweight stdio-based MCP server that enables AI-assisted control over GHCi sessions.
+
+We have also developed a dedicated VS Code extension named [**pms-vscode**](https://github.com/phoityne/pms-vscode), which provides a frontend interface to `pty-mcp-server` within the editor.  
+Although `haskell-debug-adapter` and `pms-vscode` are implemented as independent extensions and operate separately, their collaboration may deepen in the future as part of broader efforts toward AI-driven and automated Haskell development tooling.
+
+This integration aims to:
+
+- Allow AI agents to issue debug commands over MCP to the adapter  
+- Provide scriptable, reproducible debugging workflows  
+- Support new development and learning experiences in interactive Haskell debugging  
+
+
+### Demo: Haskell Debugging with `cabal repl`
+![Demo haskell cabal repl](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_cabal.gif)  
+Ref : [haskell cabal debug prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/haskell-cabal-debug-prompt.md)
+
+1. Target Code Overview  
+A function in MyLib.hs is selected to inspect its runtime state using cabal repl and an AI-driven debug interface.
+2. MCP Server Initialization  
+The MCP server is launched to allow structured interaction between the AI and the debugging commands.
+3. Debugger Prompt and Environment Setup  
+The AI receives a prompt, starts cabal repl, and loads the module to prepare for runtime inspection.
+4. Debugging Execution Begins  
+The target function is executed and paused at a predefined point for runtime observation.
+5. State Inspection and Output  
+Runtime values and control flow are displayed to help verify logic and observe internal behavior.
+6. Summary  
+Integration with pty-msp-server enables automated runtime inspection for Haskell applications.
+
